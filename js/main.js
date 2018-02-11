@@ -1,5 +1,10 @@
+/* Treehouse Techdegree - Full Stack Javascript
+Cameron O'Brien
+Project 04
+Tic Tac Toe
+*/
 
-
+// IIFE used to run immediately and keep variables off global scope
 (function() {
 
   const startScreen = '<div class="screen screen-start" id="start"><header><h1>Tic Tac Toe</h1><a href="#" class="button">Start game</a></header></div>';
@@ -19,7 +24,7 @@
   $('#board').hide();
   $('body').append(winnerScreen);
   $('#finish').hide();
-
+// When start button is clicked show / hide content and initiate game
   const gameStart = function() {
       $('#start').show();
       $('.button').on('click', () => {
@@ -36,7 +41,7 @@
         playGame();
       });
     };
-
+// Function runs every turn for a player and checks wins
   const playerAction = function() {
     moveCount ++;
     console.log(moveCount)
@@ -44,7 +49,7 @@
     checkTie();
     playerTurn();
   }
-
+// Function to control player mouse hovers and show player svg
   const playGame = function() {
       $('.box').each(function(){
         $(this).mouseenter(function(){ 
@@ -76,8 +81,7 @@
         } 
       }); 
     };
-
-
+// To switch between who is the active player
   const playerTurn = function() {
     if ($(player1).hasClass('active')) {
       $(player1).removeClass('active');
@@ -87,10 +91,10 @@
       $(player1).addClass('active');
     }
   };
-
-  const winMessage = function (first, second, third) {
+// Function to show winning player message
+  const winMessage = function(rowOne, rowTwo, rowThree) {
     for (let i = 0; i < boxes.length; i++) {
-      if (boxes[i].children[first].classList.contains('box-filled-2') && boxes[i].children[second].classList.contains('box-filled-2') && boxes[i].children[third].classList.contains('box-filled-2')) {
+      if (boxes[i].children[rowOne].classList.contains('box-filled-2') && boxes[i].children[rowTwo].classList.contains('box-filled-2') && boxes[i].children[rowThree].classList.contains('box-filled-2')) {
             $("#finish").removeClass("screen-win-one");
             $("#finish").removeClass("screen-win-tie");
             $(".message").html("Player 2 wins!");
@@ -99,7 +103,7 @@
             $("#board").hide();
             console.log("Winner X");
             return true;
-      } else if (boxes[i].children[first].classList.contains('box-filled-1') && boxes[i].children[second].classList.contains('box-filled-1') && boxes[i].children[third].classList.contains('box-filled-1')) {  
+      } else if (boxes[i].children[rowOne].classList.contains('box-filled-1') && boxes[i].children[rowTwo].classList.contains('box-filled-1') && boxes[i].children[rowThree].classList.contains('box-filled-1')) {  
             $("#finish").removeClass("screen-win-two");
             $("#finish").removeClass("screen-win-tie");
             $(".message").html("Player 1 wins!");
@@ -112,7 +116,7 @@
       }
     }
   };
-
+// Function to check for winning combinations on grid 
   const checkWin = function() {
     for (let i = 0; i < box.length; i++) {
         box[i].addEventListener('click', () => {
@@ -121,7 +125,7 @@
         });
       }
   }
-
+// Function to check for tie and if the board is full and no winner
   const checkTie = function() {
     if ( moveCount >= 9  ) {
                 console.log("Tie");
