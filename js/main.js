@@ -35,8 +35,57 @@
         });
         $('li.players').removeClass('active');
         $(player1).addClass('active');
+        playGame();
       });
     };
+
+    const playGame = function() {
+        $('.box').each(function(){
+          $(this).mouseenter(function(){ 
+            if ( $(player1).hasClass("active")) {
+              this.style.backgroundImage = "url('img/o.svg')";
+            } else {
+              this.style.backgroundImage = "url('img/x.svg')";
+            }
+          });
+          $(this).mouseleave(function(){ 
+            this.style.backgroundImage = "none";
+          });
+        });
+        $('.box').click(function() { 
+          if (player1.classList.contains("active")) {
+            if ( this.classList.contains("box-filled-1") === false && this.classList.contains("box-filled-2") === false ) {
+              this.classList.add('box-filled-1');
+              this.style.backgroundImage = "url('img/o.svg')";
+              $(this).unbind('mouseenter mouseleave');
+              playerAction();
+            }
+          } else if (player2.classList.contains("active")) {
+            if ( this.classList.contains("box-filled-1") === false && this.classList.contains("box-filled-2") === false ) {
+              this.classList.add('box-filled-2');
+              this.style.backgroundImage = "url('img/x.svg')";
+              $(this).unbind('mouseenter mouseleave');
+              playerAction();
+            }
+          } 
+        }); 
+      };
+
+      const playerAction = function() {
+        moveCount ++;
+        playerTurn();
+      }
+
+
+      const playerTurn = function() {
+        if ($(player1).hasClass('active')) {
+          $(player1).removeClass('active');
+          $(player2).addClass('active');
+        } else {
+          $(player2).removeClass('active');
+          $(player1).addClass('active');
+        }
+      };
 
   gameStart();
 
